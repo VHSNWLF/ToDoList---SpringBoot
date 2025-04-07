@@ -1,6 +1,7 @@
 package com.vhsn.todolist.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -25,7 +26,8 @@ public class TodoService {
         Sort sort = Sort.by("prioridade").descending().and(Sort.by("name").ascending());
         return todoRepository.findAll(sort);
     }
-    public List<Todo> update(Todo todo){
+    public List<Todo> update(Todo todo, Long id){
+        todoRepository.deleteById(id);
         todoRepository.save(todo);
         return list();
     }

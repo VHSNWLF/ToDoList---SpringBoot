@@ -8,6 +8,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "tb_todos")
@@ -18,9 +19,11 @@ public class Todo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @NotBlank
     private String name;
+    @NotBlank
     private String description;
     private boolean realized;
     private int prioridade;
+
 }

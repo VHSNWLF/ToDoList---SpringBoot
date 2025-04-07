@@ -2,6 +2,7 @@ package com.vhsn.todolist.Controller;
 
 import java.util.List;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,23 +26,23 @@ public class TodoController {
     @Autowired
     private TodoService todoService;
     
-    @PostMapping
-    List<Todo> create(@RequestBody Todo todo){
+    @PostMapping("/create")
+    List<Todo> create(@RequestBody @Valid Todo todo){
         return todoService.create(todo);
     }
 
-    @GetMapping
+    @GetMapping("/list")
     List<Todo> list(Todo todo){
         return todoService.list();
     }
 
-    @PutMapping
-    List<Todo> update(@RequestBody Todo todo){
-        return todoService.update(todo);
+    @PutMapping("/update/{id}")
+    List<Todo> update(@RequestBody Todo todo, @PathVariable("id") Long id){
+        return todoService.update(todo, id);
     }
 
-    @DeleteMapping ("{id}")
-    List<Todo> delete(@PathVariable("id") Todo todo){
-        return todoService.delete(todo.getId());
+    @DeleteMapping ("/delete/{id}")
+    List<Todo> delete(@PathVariable("id") Long id){
+        return todoService.delete(id);
     }
 }
